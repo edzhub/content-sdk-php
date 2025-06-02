@@ -1,0 +1,43 @@
+{
+    "name": "edzhub/content-sdk-php",
+    "description": "This Package will provide sdk for edzhub content api.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "zslapi",
+        "zsl",
+        "zsl content",
+        "zsl content access",
+        "zsl content api",
+        "zsl content access api",
+        "zsl content access package",
+        "zsl content access laravel package",
+        "zsl content access laravel package",
+        "edzhub content sdk",
+        "edzhub content sdk php",
+        "edzhub content sdk laravel",
+        "edzhub content sdk package",
+        "edzhub content sdk api",
+        "edzhub content sdk access",
+        "edzhub content sdk access api",
+        "edzhub content sdk access package",
+        "edzhub content sdk access laravel package"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Edzhub\\ContentSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "satyam147",
+            "email": "satyam161211149@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.2",
+        "illuminate/http": "^v8.0|^v9.0|^v10.0|^v11.0|^v12.0",
+        "illuminate/support": "^v8.0|^v9.0|^v10.0|^v11.0|^v12.0"
+    }
+}
