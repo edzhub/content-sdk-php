@@ -15,7 +15,7 @@ class ContentSdk
     public function __construct(?string $token = null, private string $version = 'v1')
     {
         $this->accessToken = $token ?? \config('zsl-content.MANAGER_TOKEN');
-        $this->subUsers = 'user/subuser';
+        $this->subUsers = 'user/subUser';
     }
 
     public function getUsers(): PromiseInterface|Response
