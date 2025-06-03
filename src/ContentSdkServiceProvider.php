@@ -1,6 +1,6 @@
 <?php
 
-namespace Zsl\ContentSdk;
+namespace Edzhub\ContentSdk;
 
 use Illuminate\Support\ServiceProvider;
 
