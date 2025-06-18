@@ -3,6 +3,7 @@
 namespace Edzhub\ContentSdk;
 
 use GuzzleHttp\Promise\PromiseInterface;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -15,41 +16,62 @@ class ContentSdk
         $this->accessToken = $token ?? \config('zsl-content.MANAGER_TOKEN');
     }
 
-    /*
-     * Get the list of users.
+    /**
+     * Create a new user.
+     *
+     * @throws ConnectionException
      */
-    public function getUsers(): PromiseInterface|Response
+    public function createUser(string $name, string $email, string $passowrd): PromiseInterface|Response
+    {
+        $token = config('zsl-content.ADMIN_TOKEN');
+
+        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user'), ['name' => $name, 'email' => $email, 'password' => $passowrd]);
+    }
+
+    /**
+     * Get the list of sub users.
+     *
+     * @throws ConnectionException
+     */
+    public function getSubUsers(): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'user/subUser'));
     }
 
-    /*
-     * Create a new user.
+    /**
+     * Create a new sub user.
+     *
+     * @throws ConnectionException
      */
-    public function createUser($userName): PromiseInterface|Response
+    public function createSubUser($userName): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'user/subUser'), ['user_name' => $userName]);
     }
 
-    /*
+    /**
      * Get the list of Classes.
+     *
+     * @throws ConnectionException
      */
-
     public function getClasses(): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'class'));
     }
 
-    /*
+    /**
      * Get the list of Subjects for a given class.
+     *
+     * @throws ConnectionException
      */
     public function getSubjects($class_id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'subject'), ['class_id' => $class_id]);
     }
 
-    /*
+    /**
      * Get the list of Chapters for a given class and subject.
+     *
+     * @throws ConnectionException
      */
     public function getChapters($class_id, $subject_id): PromiseInterface|Response
     {
@@ -59,31 +81,37 @@ class ContentSdk
         ]);
     }
 
-    /*
+    /**
      * Get the list of Topics for a given chapter.
+     *
+     * @throws ConnectionException
      */
     public function getTopics($chapter_id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id]);
     }
 
-    /*
+    /**
      * Get the list of Activities for a given topic.
+     *
+     * @throws ConnectionException
      */
     public function getActivities($topic_id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'activity'), ['topic_id' => $topic_id]);
     }
 
-    /*
+    /**
      * Get Signed URL for a given activity.
+     *
+     * @throws ConnectionException
      */
     public function getSignedUrl($activity_id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/signed-url/{$activity_id}"));
     }
 
-    /*
+    /**
      * Set the access token for the SDK.
      */
     public function setToken(string $token): void
@@ -91,7 +119,7 @@ class ContentSdk
         $this->accessToken = $token;
     }
 
-    /*
+    /**
      * Get the URL for the API.
      */
     private function getUrl(string $path = ''): string

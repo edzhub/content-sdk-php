@@ -12,6 +12,12 @@ php artisan vendor:publish --provider=Edzhub\ContentSdk\ContentSdkServiceProvide
 ZSL_CONTENT_MANAGER_TOKEN=<yourtoken>
 ```
 
+if you have admin access to create users
+
+```
+ZSL_CONTENT_ADMIN_TOKEN=<youradmintoken>
+```
+
 if you have whitelisted domain
 
 ```
@@ -26,13 +32,16 @@ use Edzhub\ContentSdk\ContentSdk;
 $client = new ContentSdk();
 
 // Set the token if not set in the environment
-$client->setToken(env('ZSL_CONTENT_MANAGER_TOKEN'));
-
-// Get Users
-$users = $client->getUsers();
+$client->setToken('token from db');
 
 // Create a User
-$user = $client->createUser(userName: $userName);
+$user = $client->createUser(name: $name,email: $email,password: $password);
+
+// Get Sub Users
+$subUsers = $client->getSubUsers();
+
+// Create a Sub User
+$subUser = $client->createSubUser(userName: $userName);
 
 // Get Classes
 $classes = $client->getClasses();
