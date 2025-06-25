@@ -34,6 +34,13 @@
             "email": "satyam161211149@gmail.com"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Edzhub\\ContentSdk\\ContentSdkServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "require": {
         "php": "^8.2",
