@@ -16,4 +16,6 @@ class ContentSdkServiceProvider extends ServiceProvider
             __DIR__.'/config/zsl-content.php' => \config_path('zsl-content.php'),
         ]);
     }
+
+    public function register() {}
 }
