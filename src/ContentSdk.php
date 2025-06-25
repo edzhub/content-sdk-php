@@ -130,7 +130,7 @@ class ContentSdk
         }
         $url .= $this->version.'/';
         if ($path !== '') {
-            $url = $path;
+            $url .= $path;
         }
 
         return $url;
