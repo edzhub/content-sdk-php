@@ -21,11 +21,11 @@ class ContentSdk
      *
      * @throws ConnectionException
      */
-    public function createUser(string $name, string $email, string $passowrd): PromiseInterface|Response
+    public function createUser(string $name, string $email, string $passowrd, string $confirmationPassword): PromiseInterface|Response
     {
         $token = config('zsl-content.ADMIN_TOKEN');
 
-        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user'), ['name' => $name, 'email' => $email, 'password' => $passowrd]);
+        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user'), ['name' => $name, 'email' => $email, 'password' => $passowrd, 'password_confirmation' => $confirmationPassword]);
     }
 
     /**
@@ -56,6 +56,27 @@ class ContentSdk
     public function getClasses(): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'class'));
+    }
+
+    /**
+     * Assign a class to a sub user.
+     *
+     *
+     * @throws ConnectionException
+     */
+    public function assignClass(string $classId, string $subUserId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'class/sub-user/add'), ['class_id' => $classId, 'sub_user_id' => $subUserId]);
+    }
+
+    /**
+     * Remove a class from a sub user.
+     *
+     * @throws ConnectionException
+     */
+    public function removeClass(string $classId, string $subUserId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'class/sub-user/remove'), ['class_id' => $classId, 'sub_user_id' => $subUserId]);
     }
 
     /**
