@@ -21,11 +21,11 @@ class ContentSdk
      *
      * @throws ConnectionException
      */
-    public function createUser(string $name, string $email, string $passowrd, string $confirmationPassword): PromiseInterface|Response
+    public function createUser(string $name, string $email, string $passowrd, string $syllabus, string $stateId, array $classes): PromiseInterface|Response
     {
         $token = config('zsl-content.ADMIN_TOKEN');
 
-        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user'), ['name' => $name, 'email' => $email, 'password' => $passowrd, 'password_confirmation' => $confirmationPassword]);
+        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'sdk/create'), ['name' => $name, 'email' => $email, 'password' => $passowrd, 'syllabus' => $syllabus, 'state_id' => $stateId, 'classes' => $classes]);
     }
 
     /**
