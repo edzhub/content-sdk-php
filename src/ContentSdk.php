@@ -17,15 +17,39 @@ class ContentSdk
     }
 
     /**
+     * Get the list of States.
+     *
+     * @throws ConnectionException
+     */
+    public function getStates(): PromiseInterface|Response
+    {
+        $token = config('zsl-content.ADMIN_TOKEN');
+
+        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'state'));
+    }
+
+    /**
+     * Get the list of All Classes.
+     *
+     * @throws ConnectionException
+     */
+    public function getAllClasses(string $syllabus, string $stateId = ''): PromiseInterface|Response
+    {
+        $token = config('zsl-content.ADMIN_TOKEN');
+
+        return Http::withToken($token)->acceptJson()->get($this->getUrl(path: 'class'), ['syllabus' => $syllabus, 'state_id' => $stateId]);
+    }
+
+    /**
      * Create a new user.
      *
      * @throws ConnectionException
      */
-    public function createUser(string $name, string $email, string $passowrd, string $syllabus, array $classes, string $stateId = ''): PromiseInterface|Response
+    public function createUser(string $name, string $email, string $passowrd, array $classes): PromiseInterface|Response
     {
         $token = config('zsl-content.ADMIN_TOKEN');
 
-        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user/sdk/create'), ['name' => $name, 'email' => $email, 'password' => $passowrd, 'syllabus' => $syllabus, 'state_id' => $stateId, 'classes' => $classes]);
+        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'user/sdk/create'), ['name' => $name, 'email' => $email, 'password' => $passowrd, 'classes' => $classes]);
     }
 
     /**
