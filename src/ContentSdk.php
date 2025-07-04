@@ -25,7 +25,7 @@ class ContentSdk
     {
         $token = config('zsl-content.ADMIN_TOKEN');
 
-        return Http::withToken($token)->acceptJson()->post($this->getUrl(path: 'state'));
+        return Http::withToken($token)->acceptJson()->get($this->getUrl(path: 'state'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ContentSdk
      *
      * @throws ConnectionException
      */
-    public function getAllClasses(string $syllabus, string $stateId = ''): PromiseInterface|Response
+    public function getAllClasses(?string $syllabus = null, ?string $stateId = null): PromiseInterface|Response
     {
         $token = config('zsl-content.ADMIN_TOKEN');
 
