@@ -79,7 +79,7 @@ class ContentSdk
      */
     public function getClasses(): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'class'));
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'user/assigned-classes'));
     }
 
     /**
