@@ -29,6 +29,18 @@ class ContentSdk
     }
 
     /**
+     * Get the list of Languages
+     *
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getLanguages(): PromiseInterface|Response
+    {
+        $token = config('zsl-content.ADMIN_TOKEN');
+        return Http::withToken($token)->acceptJson()->get($this->getUrl(path: 'language'));
+    }
+
+    /**
      * Get the list of All Classes.
      *
      * @throws ConnectionException
@@ -131,9 +143,9 @@ class ContentSdk
      *
      * @throws ConnectionException
      */
-    public function getTopics($chapter_id): PromiseInterface|Response
+    public function getTopics($chapter_id, $language_id = null): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id]);
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id,'language_id' => $language_id]);
     }
 
     /**
