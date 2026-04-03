@@ -43,6 +43,7 @@ class ContentSdk
     /**
      * Get the list of All Classes.
      *
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getAllClasses(?string $syllabus = null, ?string $stateId = null): PromiseInterface|Response
@@ -55,6 +56,7 @@ class ContentSdk
     /**
      * Create a new user.
      *
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function createUser(string $name, string $email, string $passowrd, array $classes): PromiseInterface|Response
@@ -67,6 +69,7 @@ class ContentSdk
     /**
      * Get the list of sub users.
      *
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getSubUsers(): PromiseInterface|Response
@@ -76,7 +79,8 @@ class ContentSdk
 
     /**
      * Create a new sub user.
-     *
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function createSubUser($userName): PromiseInterface|Response
@@ -87,6 +91,7 @@ class ContentSdk
     /**
      * Get the list of Classes.
      *
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getClasses(): PromiseInterface|Response
@@ -97,7 +102,10 @@ class ContentSdk
     /**
      * Assign a class to a sub user.
      *
-     *
+     * @param string $classId The ID of the class to assign.
+     * @param string $subUserId The ID of the sub user to assign the class to.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function assignClass(string $classId, string $subUserId): PromiseInterface|Response
@@ -107,7 +115,11 @@ class ContentSdk
 
     /**
      * Remove a class from a sub user.
-     *
+     * 
+     * @param string $classId The ID of the class to remove.
+     * @param string $subUserId The ID of the sub user to remove the class from.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function removeClass(string $classId, string $subUserId): PromiseInterface|Response
@@ -118,6 +130,9 @@ class ContentSdk
     /**
      * Get the list of Subjects for a given class.
      *
+     * @param string $class_id The ID of the class to get the subjects for.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getSubjects($class_id): PromiseInterface|Response
@@ -128,6 +143,10 @@ class ContentSdk
     /**
      * Get the list of Chapters for a given class and subject.
      *
+     * @param string $class_id The ID of the class to get the chapters for.
+     * @param string $subject_id The ID of the subject to get the chapters for.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getChapters($class_id, $subject_id): PromiseInterface|Response
@@ -141,16 +160,23 @@ class ContentSdk
     /**
      * Get the list of Topics for a given chapter.
      *
+     * @param string $chapter_id The ID of the chapter to get the topics for.
+     * @param string|null $language_id The ID of the language to get the topics for.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getTopics($chapter_id, $language_id = null): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id,'language_id' => $language_id]);
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id, 'language_id' => $language_id]);
     }
 
     /**
      * Get the list of Activities for a given topic.
      *
+     * @param string $topic_id The ID of the topic to get the activities for.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getActivities($topic_id): PromiseInterface|Response
@@ -161,6 +187,9 @@ class ContentSdk
     /**
      * Get Signed URL for a given activity.
      *
+     * @param string $activity_id The ID of the activity to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
      * @throws ConnectionException
      */
     public function getSignedUrl($activity_id): PromiseInterface|Response
@@ -169,7 +198,22 @@ class ContentSdk
     }
 
     /**
+     * Get Signed URL for a given chapter.
+     *
+     * @param string $chapter_id The ID of the chapter to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getSignedUrlForChapterReference($chapter_id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "chapter/signed-url/{$chapter_id}"));
+    }
+
+    /**
      * Set the access token for the SDK.
+     * @param string $token The access token to set.
+     * @return void
      */
     public function setToken(string $token): void
     {
@@ -185,7 +229,7 @@ class ContentSdk
         if (! str_ends_with($url, '/')) {
             $url .= '/';
         }
-        $url .= $this->version.'/';
+        $url .= $this->version . '/';
         if ($path !== '') {
             $url .= $path;
         }

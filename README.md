@@ -53,11 +53,14 @@ $subjects = $client->getSubjects(class_id: $classId);
 $chapters = $client->getChapters(class_id: $classId,subject_id: $subjectId);
 
 // Get Topics
-$topics = $client->getTopics(chapter_id: $chapterId);
+$topics = $client->getTopics(chapter_id: $chapterId, language_id: $languageId|null);
 
 // Get Activities
 $activities = $client->getActivities(topic_id: $topicId);
 
 // Get Signed URL for an activity
 $signedUrl = $client->getSignedUrl(activity_id: $activityId);
+
+// Get Signed URL for an chapter references
+$signedUrl = $client->getSignedUrlForChapterReference(chapter_id: $chapter_id);
 ```
