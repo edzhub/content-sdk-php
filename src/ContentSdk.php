@@ -210,6 +210,46 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "chapter/signed-url/{$chapter_id}"));
     }
 
+
+    /**
+     * Get Signed URL for a given description.
+     *
+     * @param string $description_id The ID of the description to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getDescriptionSignedLink(string $description_id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/description/signed-url/{$description_id}"));
+    }
+
+    /**
+     * Get Signed URL for a given instruction.
+     *
+     * @param string $instruction_id The ID of the instruction to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getInstructionSignedLink(string $instruction_id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/instruction/signed-url/{$instruction_id}"));
+    }
+
+    /**
+     * Get Signed URL for a given observation.
+     *
+     * @param string $observation_id The ID of the observation to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getObservationSignedLink(string $observation_id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/observation/signed-url/{$observation_id}"));
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
