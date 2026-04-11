@@ -58,9 +58,21 @@ $topics = $client->getTopics(chapter_id: $chapterId, language_id: $languageId|nu
 // Get Activities
 $activities = $client->getActivities(topic_id: $topicId);
 
+// Get Questions.
+$questions = $client->getQuestions(activity_id: $activity_id, language_id: languageId|null, per_page: 10);
+
 // Get Signed URL for an activity
 $signedUrl = $client->getSignedUrl(activity_id: $activityId);
 
 // Get Signed URL for an chapter references
 $signedUrl = $client->getSignedUrlForChapterReference(chapter_id: $chapter_id);
+
+// Get Signed URL for description.
+$signedUrl = $client->getDescriptionSignedLink(description_id: $description_id);
+
+// Get Signed URL for instruction.
+$signedUrl = $client->getInstructionSignedLink(instructor_id: $instructor_id);
+
+// Get Signed URL for observation.
+$signedUrl = $client->getObservationSignedLink(observation_id: $observation_id);
 ```

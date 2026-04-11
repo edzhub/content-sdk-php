@@ -184,6 +184,15 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'activity'), ['topic_id' => $topic_id]);
     }
 
+    public function getQuestions($activity_id, $language_id = null, $per_page = 10): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/question-bank"), [
+            'activity_id' => $activity_id,
+            "language_id" => $language_id,
+            "per_page" => $per_page,
+        ]);
+    }
+
     /**
      * Get Signed URL for a given activity.
      *
