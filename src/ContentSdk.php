@@ -259,7 +259,18 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/observation/signed-url/{$observation_id}"));
     }
 
-    public function getQuizResult(string $subUserId, string $classId, string $activityId, array $answers): PromiseInterface|Response
+    /**
+     * Attempt a quiz for a given activity.
+     *
+     * @param string $subUserId The ID of the sub user attempting the quiz.
+     * @param string $classId The ID of the class the quiz belongs to.
+     * @param string $activityId The ID of the activity the quiz belongs to.
+     * @param array $answers The answers to the quiz questions.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function attemptQuiz(string $subUserId, string $classId, string $activityId, array $answers): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/question-bank/attempt-quiz"), [
             'sub_user_id' => $subUserId,
