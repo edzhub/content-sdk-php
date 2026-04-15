@@ -259,6 +259,16 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/observation/signed-url/{$observation_id}"));
     }
 
+    public function getQuizResult(string $subUserId, string $classId, string $activityId, array $answers): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/question-bank/attempt-quiz"), [
+            'sub_user_id' => $subUserId,
+            'classes_id' => $classId,
+            'activity_id' => $activityId,
+            'answers' => $answers,
+        ]);
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
