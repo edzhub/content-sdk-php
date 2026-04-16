@@ -76,5 +76,9 @@ $signedUrl = $client->getInstructionSignedLink(instructor_id: $instructor_id);
 // Get Signed URL for observation.
 $signedUrl = $client->getObservationSignedLink(observation_id: $observation_id);
 
-$result = $client->attemptQuiz(subUserId: $subUserId, classId:$classId, activityId:$activityId, answers: $answers)
+// Get Quiz Result.
+$result = $client->attemptQuiz(subUserId: $subUserId, classId: $classId, activityId:$activityId, answers: $answers)
+
+// Get Tickets.
+$tickets = $client->getTickets(classId: $classId, subUserId: $subUserid)
 ```

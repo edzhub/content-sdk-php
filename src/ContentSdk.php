@@ -281,6 +281,23 @@ class ContentSdk
     }
 
     /**
+     * Get tickets for a given class and sub user.
+     *
+     * @param string $classId The ID of the class to get tickets for.
+     * @param string $subUserId The ID of the sub user to get tickets for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getTickets(string $classId, string $subUserId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/question-bank/get-tickets"), [
+            'classes_id' => $classId,
+            'sub_user_id' => $subUserId,
+        ]);
+    }
+
+    /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
      * @return void
