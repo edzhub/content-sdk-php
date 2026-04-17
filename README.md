@@ -81,4 +81,7 @@ $result = $client->attemptQuiz(subUserId: $subUserId, classId: $classId, activit
 
 // Get Tickets.
 $tickets = $client->getTickets(classId: $classId, subUserId: $subUserid)
+
+// Unlock Activity.
+$result = $client->unlockActivity(subUserId: $subUserId, activityId: $activityId)
 ```

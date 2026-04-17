@@ -297,6 +297,14 @@ class ContentSdk
         ]);
     }
 
+    public function unlockActivity(string $subUserId, string $activityId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/unlock"), [
+            'sub_user_id' => $subUserId,
+            'activity_id' => $activityId,
+        ]);
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
