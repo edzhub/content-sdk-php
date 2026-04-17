@@ -304,7 +304,14 @@ class ContentSdk
             'activity_id' => $activityId,
         ]);
     }
-
+    public function getSubjectPerformance(string $subUserId, string $classId, string $subjectId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "learning-analytics/subject-performance"), [
+            'sub_user_id' => $subUserId,
+            'classes_id' => $classId,
+            'subject_id' => $subjectId,
+        ]);
+    }
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
