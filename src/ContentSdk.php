@@ -315,7 +315,7 @@ class ContentSdk
 
     public function createSubUserFromSdk($userName, $classes): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'user/subUser'), ['user_name' => $userName, "classes" => $classes]);
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'user/subUser/sdk/create'), ['user_name' => $userName, "classes" => $classes]);
     }
     /**
      * Set the access token for the SDK.
