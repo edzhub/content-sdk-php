@@ -94,9 +94,9 @@ class ContentSdk
      * @return PromiseInterface|Response
      * @throws ConnectionException
      */
-    public function getClasses(): PromiseInterface|Response
+    public function getClasses(?string $subUserId = null): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'user/assigned-classes'));
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'user/assigned-classes'), ["sub_user_id" => $subUserId]);
     }
 
     /**
@@ -317,6 +317,17 @@ class ContentSdk
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'user/subUser/sdk/create'), ['user_name' => $userName, "classes" => $classes]);
     }
+
+    public function deleteUser(string $id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->delete($this->getUrl(path: "user/{$id}"));
+    }
+
+    public function deleteSubUser(string $id): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->delete($this->getUrl(path: "user/subUser/{$id}"));
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.

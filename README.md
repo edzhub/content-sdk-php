@@ -44,7 +44,7 @@ $subUsers = $client->getSubUsers();
 $subUser = $client->createSubUser(userName: $userName);
 
 // Get Classes
-$classes = $client->getClasses();
+$classes = $client->getClasses(subUserId: $subUserId|null);
 
 // Get Subjects
 $subjects = $client->getSubjects(class_id: $classId);
@@ -84,4 +84,10 @@ $tickets = $client->getTickets(classId: $classId, subUserId: $subUserid)
 
 // Unlock Activity.
 $result = $client->unlockActivity(subUserId: $subUserId, activityId: $activityId)
+
+// Deletes User.
+$result = $client->deleteUser(string $id);
+
+// Delete Sub-User.
+$result = $client->deleteUser(string $id);
 ```
