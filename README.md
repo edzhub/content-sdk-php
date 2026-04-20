@@ -89,5 +89,5 @@ $result = $client->unlockActivity(subUserId: $subUserId, activityId: $activityId
 $result = $client->deleteUser(string $id);
 
 // Delete Sub-User.
-$result = $client->deleteUser(string $id);
+$result = $client->deleteSubUser(string $id);
 ```
