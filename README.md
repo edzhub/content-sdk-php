@@ -53,7 +53,7 @@ $subjects = $client->getSubjects(class_id: $classId);
 $chapters = $client->getChapters(class_id: $classId,subject_id: $subjectId);
 
 // Get Topics
-$topics = $client->getTopics(chapter_id: $chapterId, language_id: $languageId|null);
+$topics = $client->getTopics(chapter_id: $chapterId, language_id: $languageId|null, subUserId:$subUserId|null);
 
 // Get Activities
 $activities = $client->getActivities(topic_id: $topicId);

@@ -166,9 +166,9 @@ class ContentSdk
      * @return PromiseInterface|Response
      * @throws ConnectionException
      */
-    public function getTopics($chapter_id, $language_id = null): PromiseInterface|Response
+    public function getTopics($chapter_id, $language_id = null, $subUserId = null): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id, 'language_id' => $language_id]);
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: 'topic'), ['chapter_id' => $chapter_id, 'language_id' => $language_id, 'sub_user_id' => $subUserId]);
     }
 
     /**
