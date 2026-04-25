@@ -328,6 +328,16 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->delete($this->getUrl(path: "user/subUser/{$id}"));
     }
 
+    public function updateUserClassAccess(string $userId, array $classes): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->put($this->getUrl(path: "user/update-access/{$userId}"), ['classes' => $classes]);
+    }
+
+    public function updateSubUserClassAccess(string $subUserId, array $classes): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->put($this->getUrl(path: "user/subUser/update-access/{$subUserId}"), ['classes' => $classes]);
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.

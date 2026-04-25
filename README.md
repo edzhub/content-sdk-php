@@ -90,4 +90,10 @@ $result = $client->deleteUser(string $id);
 
 // Delete Sub-User.
 $result = $client->deleteSubUser(string $id);
+
+// Updates class access for user.
+$result = $client->updateUserClassAccess(string $userId, array $classes);
+
+// Updates class access for Sub User.
+$result = $client->updateSubUserClassAccess(string $userId, array $classes);
 ```
