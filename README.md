@@ -96,4 +96,10 @@ $result = $client->updateUserClassAccess(string $userId, array $classes);
 
 // Updates class access for Sub User.
 $result = $client->updateSubUserClassAccess(string $userId, array $classes);
+
+// Assign subuser to the class.
+$result = $client->assignClass(string $classId, string $subUserId, string $hasFullAccess)
+
+// Remove subuser to the class.
+$result = $client->removeClass(string $classId, string $subUserId);
 ```
