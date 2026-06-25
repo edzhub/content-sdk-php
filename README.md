@@ -102,4 +102,10 @@ $result = $client->assignClass(string $classId, string $subUserId, string $hasFu
 
 // Remove subuser to the class.
 $result = $client->removeClass(string $classId, string $subUserId);
+
+// Record performance.
+$result = $client->recordActivityPerformance(string $classId, string $subUserId, string $activityId, string $xp);
+
+// Get XP.
+$result = $client->getXp(string $classId, string $subUserId);
 ```

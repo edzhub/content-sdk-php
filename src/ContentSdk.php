@@ -338,6 +338,24 @@ class ContentSdk
         return Http::withToken($this->accessToken)->acceptJson()->put($this->getUrl(path: "user/subUser/update-access/{$subUserId}"), ['classes' => $classes]);
     }
 
+    public function getXp(string $subUserId, string $classId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "user/subUser/getXp"), [
+            'sub_user_id' => $subUserId,
+            'classes_id' => $classId,
+        ]);
+    }
+
+    public function recordActivityPerformance(string $subUserId, string $classId, string $activityId, string $xp): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/record-performance"), [
+            'sub_user_id' => $subUserId,
+            'classes_id' => $classId,
+            'activity_id' => $activityId,
+            'xp_earned' => $xp,
+        ]);
+    }
+
     /**
      * Set the access token for the SDK.
      * @param string $token The access token to set.
