@@ -297,6 +297,15 @@ class ContentSdk
         ]);
     }
 
+    /**
+     * Unlock an activity for a given sub user.
+     *
+     * @param string $subUserId The ID of the sub user to unlock the activity for.
+     * @param string $activityId The ID of the activity to unlock.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
     public function unlockActivity(string $subUserId, string $activityId): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/unlock"), [
@@ -304,6 +313,15 @@ class ContentSdk
             'activity_id' => $activityId,
         ]);
     }
+
+    /**
+     * Get the performance of a sub-user for a specific subject.
+     *
+     * @param string $subUserId The ID of the sub-user.
+     * @param string $classId The ID of the class.
+     * @param string $subjectId The ID of the subject.
+     * @return PromiseInterface|Response
+     */
     public function getSubjectPerformance(string $subUserId, string $classId, string $subjectId): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "learning-analytics/subject-performance"), [
@@ -313,31 +331,68 @@ class ContentSdk
         ]);
     }
 
+    /**
+     * Create a sub-user from the SDK.
+     *
+     * @param string $userName The name of the sub-user.
+     * @param array $classes The classes to assign to the sub-user.
+     * @return PromiseInterface|Response
+     */
     public function createSubUserFromSdk($userName, $classes): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'user/subUser/sdk/create'), ['user_name' => $userName, "classes" => $classes]);
     }
 
+    /**
+     * Delete a user by ID.
+     *
+     * @param string $id The ID of the user to delete.
+     * @return PromiseInterface|Response
+     */
     public function deleteUser(string $id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->delete($this->getUrl(path: "user/{$id}"));
     }
 
+    /**
+     * Delete a sub-user by ID.
+     *
+     * @param string $id The ID of the sub-user to delete.
+     * @return PromiseInterface|Response
+     */
     public function deleteSubUser(string $id): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->delete($this->getUrl(path: "user/subUser/{$id}"));
     }
 
+    /**
+     * Update the access of a user to specific classes.
+     * @param string $userId The ID of the user.
+     * @param array $classes The classes to update access for.
+     * @return PromiseInterface|Response
+     */
     public function updateUserClassAccess(string $userId, array $classes): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->put($this->getUrl(path: "user/update-access/{$userId}"), ['classes' => $classes]);
     }
 
+    /**
+     * Update the access of a sub-user to specific classes.
+     * @param string $subUserId The ID of the sub-user.
+     * @param array $classes The classes to update access for.
+     * @return PromiseInterface|Response
+     */
     public function updateSubUserClassAccess(string $subUserId, array $classes): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->put($this->getUrl(path: "user/subUser/update-access/{$subUserId}"), ['classes' => $classes]);
     }
 
+    /**
+     * Get the XP of a sub-user for a specific class.
+     * @param string $subUserId The ID of the sub-user.
+     * @param string $classId The ID of the class.
+     * @return PromiseInterface|Response
+     */
     public function getXp(string $subUserId, string $classId): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "user/subUser/getXp"), [
@@ -346,13 +401,19 @@ class ContentSdk
         ]);
     }
 
-    public function recordActivityPerformance(string $subUserId, string $classId, string $activityId, string $xp): PromiseInterface|Response
+    /**
+     * Record the performance of an activity for a sub-user.
+     * @param string $subUserId The ID of the sub-user.
+     * @param string $classId The ID of the class.
+     * @param string $activityId The ID of the activity.
+     * @return PromiseInterface|Response
+     */
+    public function recordActivityPerformance(string $subUserId, string $classId, string $activityId): PromiseInterface|Response
     {
         return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/record-performance"), [
             'sub_user_id' => $subUserId,
             'classes_id' => $classId,
             'activity_id' => $activityId,
-            'xp_earned' => $xp,
         ]);
     }
 

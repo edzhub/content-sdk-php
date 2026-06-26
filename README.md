@@ -104,7 +104,7 @@ $result = $client->assignClass(string $classId, string $subUserId, string $hasFu
 $result = $client->removeClass(string $classId, string $subUserId);
 
 // Record performance.
-$result = $client->recordActivityPerformance(string $classId, string $subUserId, string $activityId, string $xp);
+$result = $client->recordActivityPerformance(string $classId, string $subUserId, string $activityId);
 
 // Get XP.
 $result = $client->getXp(string $classId, string $subUserId);
