@@ -110,7 +110,13 @@ class ContentSdk
      */
     public function assignClass(string $classId, string $subUserId, string $hasFullAccess): PromiseInterface|Response
     {
-        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'class/sub-user/add'), ['class_id' => $classId, 'sub_user_id' => $subUserId, 'has_full_access' => (string)$hasFullAccess]);
+        $hasFullAccess = (string)$hasFullAccess;
+
+        if ($hasFullAccess == "") {
+            $hasFullAccess = "false";
+        }
+
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: 'class/sub-user/add'), ['class_id' => $classId, 'sub_user_id' => $subUserId, 'has_full_access' => $hasFullAccess]);
     }
 
     /**
