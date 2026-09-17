@@ -287,6 +287,25 @@ class ContentSdk
     }
 
     /**
+     * Attempt a quiz in bulk for multiple students.
+     *
+     * @param string $classId The ID of the class the quiz belongs to.
+     * @param string $activityId The ID of the activity the quiz belongs to.
+     * @param array $students Array of student attempts with sub_user_id and answers.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function attemptQuizBulk(string $classId, string $activityId, array $students): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->post($this->getUrl(path: "activity/question-bank/attempt-quiz-bulk"), [
+            'classes_id' => $classId,
+            'activity_id' => $activityId,
+            'students' => $students,
+        ]);
+    }
+
+    /**
      * Get tickets for a given class and sub user.
      *
      * @param string $classId The ID of the class to get tickets for.
@@ -335,6 +354,47 @@ class ContentSdk
             'classes_id' => $classId,
             'subject_id' => $subjectId,
         ]);
+    }
+
+    /**
+     * Get quiz performance report with optional filters for class, subject, chapter, topic, or activity.
+     *
+     * @param array|string|null $classId The ID of the class or array of filters.
+     * @param string|null $subjectId The ID of the subject.
+     * @param string|null $chapterId The ID of the chapter.
+     * @param string|null $topicId The ID of the topic.
+     * @param string|null $activityId The ID of the activity.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getQuizPerformance(
+        array|string|null $classId = null,
+        ?string $subjectId = null,
+        ?string $chapterId = null,
+        ?string $topicId = null,
+        ?string $activityId = null
+    ): PromiseInterface|Response {
+        if (is_array($classId)) {
+            $params = $classId;
+            if (isset($params['class_id']) && ! isset($params['classes_id'])) {
+                $params['classes_id'] = $params['class_id'];
+                unset($params['class_id']);
+            }
+        } else {
+            $params = [
+                'classes_id' => $classId,
+                'subject_id' => $subjectId,
+                'chapter_id' => $chapterId,
+                'topic_id' => $topicId,
+                'activity_id' => $activityId,
+            ];
+        }
+
+        return Http::withToken($this->accessToken)->acceptJson()->get(
+            $this->getUrl(path: "learning-analytics/quiz-performance"),
+            array_filter($params, fn ($val) => ! is_null($val))
+        );
     }
 
     /**

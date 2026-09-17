@@ -77,10 +77,18 @@ $signedUrl = $client->getInstructionSignedLink(instructor_id: $instructor_id);
 $signedUrl = $client->getObservationSignedLink(observation_id: $observation_id);
 
 // Get Quiz Result.
-$result = $client->attemptQuiz(subUserId: $subUserId, classId: $classId, activityId:$activityId, answers: $answers)
+$result = $client->attemptQuiz(subUserId: $subUserId, classId: $classId, activityId:$activityId, answers: $answers);
+
+// Bulk Attempt Quiz for multiple students.
+$result = $client->attemptQuizBulk(classId: $classId, activityId: $activityId, students: $students);
 
 // Get Tickets.
-$tickets = $client->getTickets(classId: $classId, subUserId: $subUserid)
+$tickets = $client->getTickets(classId: $classId, subUserId: $subUserid);
+
+// Get Quiz Performance Report.
+$report = $client->getQuizPerformance(classId: $classId, chapterId: $chapterId);
+// or with filter array:
+$report = $client->getQuizPerformance(['classes_id' => $classId, 'chapter_id' => $chapterId, 'topic_id' => $topicId]);
 
 // Unlock Activity.
 $result = $client->unlockActivity(subUserId: $subUserId, activityId: $activityId)
