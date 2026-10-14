@@ -266,6 +266,19 @@ class ContentSdk
     }
 
     /**
+     * Get Signed URL for a given autopilot.
+     *
+     * @param string $autopilotId The ID of the autopilot to get the signed URL for.
+     * 
+     * @return PromiseInterface|Response
+     * @throws ConnectionException
+     */
+    public function getAutopilotSignedLink(string $autopilotId): PromiseInterface|Response
+    {
+        return Http::withToken($this->accessToken)->acceptJson()->get($this->getUrl(path: "activity/autopilot/signed-url/{$autopilotId}"));
+    }
+
+    /**
      * Attempt a quiz for a given activity.
      *
      * @param string $subUserId The ID of the sub user attempting the quiz.
@@ -393,7 +406,7 @@ class ContentSdk
 
         return Http::withToken($this->accessToken)->acceptJson()->get(
             $this->getUrl(path: "learning-analytics/quiz-performance"),
-            array_filter($params, fn ($val) => ! is_null($val))
+            array_filter($params, fn($val) => ! is_null($val))
         );
     }
 

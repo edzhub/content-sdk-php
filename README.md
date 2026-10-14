@@ -76,6 +76,9 @@ $signedUrl = $client->getInstructionSignedLink(instructor_id: $instructor_id);
 // Get Signed URL for observation.
 $signedUrl = $client->getObservationSignedLink(observation_id: $observation_id);
 
+// Get Signed URL for autopilot.
+$signedUrl = $client->getAutopilotSignedLink(autopilotId: $autopilotId);
+
 // Get Quiz Result.
 $result = $client->attemptQuiz(subUserId: $subUserId, classId: $classId, activityId:$activityId, answers: $answers);
 
@@ -87,6 +90,7 @@ $tickets = $client->getTickets(classId: $classId, subUserId: $subUserid);
 
 // Get Quiz Performance Report.
 $report = $client->getQuizPerformance(classId: $classId, chapterId: $chapterId);
+
 // or with filter array:
 $report = $client->getQuizPerformance(['classes_id' => $classId, 'chapter_id' => $chapterId, 'topic_id' => $topicId]);
 
